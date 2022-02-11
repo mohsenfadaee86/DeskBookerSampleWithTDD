@@ -22,14 +22,20 @@ namespace DeskBooker.Core.Processor
             }
             var availableDesks = _deskRepository.GetAvailableDesks(request.Date);
 
-            if(availableDesks.FirstOrDefault() is Desk availableDesk)
+            var result = Create<DeskBookingResult>(request);
+            if (availableDesks.FirstOrDefault() is Desk availableDesk)
             {               
                 var deskBooking = Create<DeskBooking>(request);
                 deskBooking.DeskId = availableDesk.Id;
                 _deskBookingRepository.Save(deskBooking);
+                result.Code = DeskBookginRequltCode.Success;
             }
-           
-            return Create<DeskBookingResult>(request);
+            else
+            {
+                result.Code = DeskBookginRequltCode.NoDeskAvailable;
+
+            }
+            return result;
         }
 
         private static T Create<T>(DeskbookingRequest request) where T : DeskBookingBase, new()

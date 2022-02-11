@@ -105,7 +105,7 @@ namespace DeskBooker.Core.Processor
 
         [Theory]
         [InlineData(DeskBookginRequltCode.Success,true)]
-        [InlineData(DeskBookginRequltCode.NoDeskAvailable,true)]
+        [InlineData(DeskBookginRequltCode.NoDeskAvailable,false)]
         public void ShouldReturnExpectedResultCode(
             DeskBookginRequltCode expectedResultcode,bool isDeskAvailable)
         {
